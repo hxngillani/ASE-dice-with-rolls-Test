@@ -1,7 +1,8 @@
 import datetime
 import os
 import string
-from random import randint
+import random 
+system_random = random.SystemRandom()
 
 import requests
 from flakon import SwaggerBlueprint
@@ -214,7 +215,7 @@ def _random_story():
     if len(recent_stories) == 0:
         abort(404, 'There are no recent stories by other users')
     else:
-        pos = randint(0, len(recent_stories) - 1)
+        pos = system_random.randint(0, len(recent_stories) - 1)
         return jsonify(recent_stories[pos].to_json())
 
 

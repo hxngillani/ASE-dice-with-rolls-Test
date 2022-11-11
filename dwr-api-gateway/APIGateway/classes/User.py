@@ -6,13 +6,7 @@ class User:
     is_active = True
     is_anonymous = False
     is_admin = False
-    id = -1
-    firstname = ""
-    lastname = ""
-    email = ""
-    password = ""
-
-    def __init__(self, id, firstname, lastname, email):
+    def __init__(self, id = -1, firstname = "", lastname= "", email=""):
         self.id = id
         self.firstname = firstname
         self.lastname = lastname

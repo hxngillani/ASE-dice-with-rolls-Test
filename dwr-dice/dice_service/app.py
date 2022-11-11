@@ -4,13 +4,14 @@ from sqlalchemy import func
 from .database import db, DiceSet, Die
 from .urls import DEFAULT_DB, TEST_DB
 from .views import blueprints
-
+SECRET_KEY = os.urandom(32)
+ANOTHER_ONE = os.urandom(32)
 
 def create_app(database=DEFAULT_DB, wtf=False):
     flask_app = Flask(__name__)
     flask_app.config['TESTING'] = (database == TEST_DB)
-    flask_app.config['WTF_CSRF_SECRET_KEY'] = 'A SECRET KEY'
-    flask_app.config['SECRET_KEY'] = 'ANOTHER ONE'
+    flask_app.config['WTF_CSRF_SECRET_KEY'] = SECRET_KEY
+    flask_app.config['SECRET_KEY'] = ANOTHER_ONE
     flask_app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     flask_app.config['SQLALCHEMY_DATABASE_URI'] = database
     flask_app.config['WTF_CSRF_ENABLED'] = wtf

@@ -3,7 +3,6 @@ import random as rnd
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import and_
 from sqlalchemy.orm import relationship
-
 db = SQLAlchemy()
 
 
@@ -25,7 +24,7 @@ class DiceSet(db.Model):
         return {'id': self.id, 'name': self.name}
 
     def roll_set(self, dice_number):
-        dice_indexes = rnd.sample(range(1, 7), dice_number)
+        dice_indexes = rnd.SystemRandom.sample(range(1, 7), dice_number)
         dice = Die.query.filter(and_(Die.id_set == self.id, Die.number.in_(dice_indexes)))
         result = {}
         for die in dice:
@@ -46,7 +45,7 @@ class Die(db.Model):
         return (self.figures.split('#'))[1:-1]
 
     def roll_die(self):
-        return {self.number: rnd.choice(self.figures_to_array())}
+        return {self.number: rnd.SystemRandom.choice(self.figures_to_array())}
 
     def to_json(self):
         return {'number': self.number, 'figures': self.figures_to_array()}
